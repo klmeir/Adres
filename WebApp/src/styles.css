@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+/* Estilos de fondo y color de texto */
+.bg-primary-custom {
+  background-color: #273557 !important;
+  color: white;
+}
+
+.bg-secondary-custom {
+  background-color: #45D1C0 !important;
+  color: black; /* Ajusta el color de texto según necesites */
+}
+
+.bg-info-custom {
+  background-color: #5068b2 !important;
+  color: white;
+}
+
+.bg-dark-custom {
+  background-color: #7A7F91 !important;
+  color: white;
+}
+
+.bg-light-custom {
+  background-color: #D8DAE1 !important;
+  color: black; /* Ajusta el color de texto según necesites */
+}
+
+/* Estilos de borde */
+.border-dark-custom {
+  border-color: #7A7F91 !important;
+}
+
+.border-light-custom {
+  border-color: #D8DAE1 !important;
+}
+
+/* Estilos de texto */
+.text-primary-custom {
+  color: #273557 !important;
+}
+
+.text-secondary-custom {
+  color: #45D1C0 !important;
+}
+
+.text-info-custom {
+  color: #5068b2 !important;
+}
+
+.text-dark-custom {
+  color: #7A7F91 !important;
+}
+
+.text-light-custom {
+  color: #D8DAE1 !important;
+}

@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<h3 class="mt-5 mb-3">Registration Acquisition List</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Budget</th>
+      <th>Unit</th>
+      <th>Type</th>
+      <th>Quantity</th>
+      <th>Unit Price</th>
+      <th>Total Price</th>
+      <th>Acquisition Date</th>
+      <th>Supplier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let adquisicion of adquisicions | async">
+      <td>{{ adquisicion.budget }}</td>
+      <td>{{ adquisicion.unit }}</td>
+      <td>{{ adquisicion.type }}</td>
+      <td>{{ adquisicion.quantity }}</td>
+      <td>{{ adquisicion.unitValue }}</td>
+      <td>{{ adquisicion.totalValue }}</td>
+      <td>{{ adquisicion.acquisitionDate }}</td>
+      <td>{{ adquisicion.supplier }}</td>
+      <td>
+        <button
+          class="btn btn-sm btn-danger btn-danger-custom mx-1 mb-1" style="width: 55px;"
+          (click)="deleteAcquisition(adquisicion.id)"
+        >
+          Delete
+        </button>
+        <button
+          class="btn btn-sm btn-secondary bg-secondary-custom mx-1" style="width: 55px;"
+          [routerLink]="['/edit', adquisicion.id]"
+        >
+          Edit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul *ngIf="adquisicions; else noadquisicions"></ul>
+
+<ng-template #noadquisicions>
+  <p>No adquisicions available.</p>
+</ng-template>

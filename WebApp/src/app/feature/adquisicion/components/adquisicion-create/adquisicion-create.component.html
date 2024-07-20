@@ -1,0 +1,161 @@
+<app-navbar></app-navbar>
+
+<h3 class="mt-5 mb-3 text-info-custom">{{ edit ? 'Edit acquisition' : 'Create a new acquisition'}}</h3>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <fieldset [disabled]="uploading">
+  <input type="hidden" formControlName="id" />
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label">Budget:</label>
+      <input class="form-control" type="number" formControlName="budget" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('budget')?.invalid &&
+          registerForm.get('budget')?.touched
+        "
+      >
+       Budget is required.
+      </small>
+    </div>
+
+    <div class="col">
+      <label class="form-label">Unit:</label>
+      <input class="form-control" type="text" formControlName="unit" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('unit')?.invalid &&
+          registerForm.get('unit')?.touched
+        "
+      >
+       Unit is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label">Type:</label>
+      <input class="form-control" type="text" formControlName="type" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('type')?.invalid &&
+          registerForm.get('type')?.touched
+        "
+      >
+      Type is required.
+      </small>
+    </div>
+
+    <div class="col">
+      <label class="form-label">Quantity:</label>
+      <input class="form-control" type="number" formControlName="quantity" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('quantity')?.invalid &&
+          registerForm.get('quantity')?.touched
+        "
+      >
+      Quantity is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label">Unit Price:</label>
+      <input class="form-control" type="number" formControlName="unitValue" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('unitValue')?.invalid &&
+          registerForm.get('unitValue')?.touched
+        "
+      >
+      Unit Price is required.
+      </small>
+    </div>
+
+    <div class="col">
+      <label class="form-label">Total Price:</label>
+      <input class="form-control" type="number" formControlName="totalValue" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('totalValue')?.invalid &&
+          registerForm.get('totalValue')?.touched
+        "
+      >
+      Total Price is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label">Acquisition Date:</label>
+      <input class="form-control" type="date" formControlName="acquisitionDate" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('acquisitionDate')?.invalid &&
+          registerForm.get('acquisitionDate')?.touched
+        "
+      >
+      Acquisition Date is required.
+      </small>
+    </div>
+
+    <div class="col">
+      <label class="form-label">Supplier:</label>
+      <input class="form-control" type="text" formControlName="supplier" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('supplier')?.invalid &&
+          registerForm.get('supplier')?.touched
+        "
+      >
+      Supplier is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <label class="form-label">Documentation:</label>
+      <input class="form-control mt-1 mb-3" type="file" multiple="true" (change)="onImageSelected($event)">
+    </div>
+    <div class="col mt-3">
+      <button type="button" class="btn btn-secondary bg-secondary-custom mt-3" (click)="upload()">
+        @if (uploading) {
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        }
+        Upload
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <ul class="list-group">
+        @for (file of documentationFiles; track file) {
+          <li class="list-group-item">{{file.name}}</li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary bg-primary-custom"
+    type="submit"
+    [disabled]="registerForm.invalid"
+  >
+    Save
+  </button>
+</fieldset>
+</form>
