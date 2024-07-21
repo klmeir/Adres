@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from "../../../../core/components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
-import { FakeImageUploadService } from '@adquisicion/shared/service/fake-image-upload.service';
 import { DocumentationFile } from '@adquisicion/shared/model/documentation-file';
 
 @Component({
@@ -17,11 +16,10 @@ import { DocumentationFile } from '@adquisicion/shared/model/documentation-file'
 })
 export class AdquisicionCreateComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
-  fakeImageUploadService = inject(FakeImageUploadService);
   edit = false;
   uploading = false;
   selectedImages!: FileList;
-  documentationFiles: DocumentationFile[] | undefined = [];
+  documentationFiles: DocumentationFile[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,17 +55,16 @@ export class AdquisicionCreateComponent implements OnInit {
   onSubmit() {
     if (this.registerForm.valid) {
       let registration: Acquisition = this.registerForm.value;
-      this.documentationFiles?.forEach(element => {
-        if(!registration.documentation?.some(x => x.id === element.id))
-          registration.documentation?.push(element);
-      });
-
       let id = this.activatedRoute.snapshot.paramMap.get('id');
 
+      registration.documentation = this.documentationFiles;
+
       if (id) {
+        console.log("call update", JSON.stringify(registration));
         this.registrationService.updateAcquisition(id, registration)
         .subscribe(() => window.alert("Update Acquisition"));
       } else {
+        registration.documentation = this.documentationFiles;
         this.registrationService.addAcquisition(registration)
         .subscribe(() => window.alert("Create Acquisition"));
       }
@@ -83,20 +80,20 @@ export class AdquisicionCreateComponent implements OnInit {
     }
   }
   upload(): void {
-    this.uploading = true;
     if (this.selectedImages) {
       this.uploadFiles(this.selectedImages);
     }
   }
   private uploadFiles(images: FileList): void {
-    console.log("call uploadFiles");
     this.uploading = true;
 
     for (let index = 0; index < images.length; index++) {
       const element = images[index];
-      this.fakeImageUploadService.uploadImage(element)
+      this.registrationService.uploadFile(element)
       .subscribe((p) => {
-        this.documentationFiles?.push({ name : element.name, url: p } as DocumentationFile);
+        const documentationFile = { id: 0, name : element.name, url: p.url } as DocumentationFile;
+        console.log(JSON.stringify(documentationFile));
+        this.documentationFiles.push(documentationFile);
         this.uploading = false;
       });
     }

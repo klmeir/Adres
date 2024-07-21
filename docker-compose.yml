@@ -1,0 +1,31 @@
+services:
+  adres.app:
+    image: ${DOCKER_REGISTRY-}adres.app
+    build:
+      context: ./WebApp/
+      dockerfile: Dockerfile
+    environment:
+      - endpoint=https://localhost:8000
+    ports:
+      - "8001:80"
+    depends_on:
+      - adres.api
+  adres.api:
+    image: ${DOCKER_REGISTRY-}adresapi
+    build:
+      context: .
+      dockerfile: Adres.Api/Dockerfile
+    environment:
+      - ConnectionStrings__db=Server=db1;User Id=sa;Password=<YourStrong!Passw0rd>;Database=AdresDB;Encrypt=False;TrustServerCertificate=True
+    ports:
+      - "8000:8080"
+    depends_on:
+      - db1
+  db1:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    environment:
+      MSSQL_SA_PASSWORD: "<YourStrong!Passw0rd>"
+      MSSQL_PID: "Express"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"

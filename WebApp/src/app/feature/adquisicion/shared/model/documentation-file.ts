@@ -1,5 +1,6 @@
 export interface DocumentationFile {
-  id: string;
+  id: number;
+  acquisitionId: number;
   name: string;
   url: string;
 }

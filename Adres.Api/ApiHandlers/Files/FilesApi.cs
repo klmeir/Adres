@@ -1,5 +1,6 @@
 ﻿using Adres.Api.ApiHandlers.Files;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Adres.Api.ApiHandlers.Acquisitions
 {
@@ -7,7 +8,7 @@ namespace Adres.Api.ApiHandlers.Acquisitions
     {
         public static RouteGroupBuilder MapFiles(this IEndpointRouteBuilder routeHandler)
         {
-            routeHandler.MapPost("/", async (IMediator mediator, IFormFile file) =>
+            routeHandler.MapPost("/", async (IMediator mediator, [FromForm] IFormFile file) =>
             {
                 FileDto? fileDto = null;
                 if (file is not null)
@@ -20,7 +21,7 @@ namespace Adres.Api.ApiHandlers.Acquisitions
                     };
                 }
                 var fileUrl = await mediator.Send(new UploadFileCommand(fileDto!));                
-                return fileUrl;
+                return new FileUploadResponseDto { Name = file.FileName, Url = fileUrl };
             })
             .Produces(StatusCodes.Status200OK, typeof(string))
             .DisableAntiforgery();

@@ -1,7 +1,7 @@
 import { DocumentationFile } from "./documentation-file";
 
 export interface Acquisition {
-  id: string;
+  id: number;
   budget: number;
   unit: string;
   type: string;

@@ -51,8 +51,7 @@ namespace Adres.Api.DataSource
                     AcquisitionDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(7)),
                     Supplier = "Laboratorios Bayer S.A.",
                     Documentation = new List<DocumentationFile> {
-                        new DocumentationFile { Name = "Factura", Url = "https://www.bayer.com/facturas/Factura.pdf" },
-                        new DocumentationFile { Name = "Guía de Remisión", Url = "https://www.bayer.com/remisiones/R1.pdf" }
+                        new DocumentationFile { Name = "Prueba Técnica para Desarrollador - ADRES.pdf", Url = "https://nitroadres.blob.core.windows.net/nitro-public-uploads/af7fd8a2-5b71-4770-b1f8-5bec86fba573.pdf" }
                     }
 
                 });

@@ -22,7 +22,7 @@ export class AdquisicionListComponent {
     this.adquisicions = this.adquisicionService.getAcquisitions();
   }
 
-  deleteAcquisition(id: string) {
+  deleteAcquisition(id: number) {
     this.adquisicionService.deleteAcquisition(id)
     .subscribe(() => window.alert("Delete Acquisition"));;
   }
