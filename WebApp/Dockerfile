@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Construye la aplicación para producción
-RUN npm run build
+RUN npm run build -- --configuration=production
 
 # Paso 2: Utiliza una imagen base de Nginx para servir la aplicación
 FROM nginx:alpine
@@ -25,6 +25,9 @@ COPY --from=build /app/dist/web-app/browser/* /usr/share/nginx/html/
 
 # Expone el puerto 80 para acceder a la aplicación
 EXPOSE 80
+
+# Copiar la configuración personalizada de NGINX
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Cuando el contenedor inicia, ejecuta Nginx y mantiene el proceso en primer plano
 CMD ["nginx", "-g", "daemon off;"]

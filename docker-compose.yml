@@ -5,7 +5,7 @@ services:
       context: ./WebApp/
       dockerfile: Dockerfile
     environment:
-      - endpoint=https://localhost:8000
+      - NODE_ENV=production
     ports:
       - "8001:80"
     depends_on:
