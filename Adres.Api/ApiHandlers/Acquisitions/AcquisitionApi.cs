@@ -8,9 +8,9 @@ namespace Adres.Api.ApiHandlers.Acquisitions
     {
         public static RouteGroupBuilder MapAcquisitions(this IEndpointRouteBuilder routeHandler)
         {
-            routeHandler.MapGet("/", async (IMediator mediator) =>
+            routeHandler.MapGet("/", async (IMediator mediator, [Validate][AsParameters] AcquisitionsQuery acquisitionsQuery) =>
             {
-                return Results.Ok(await mediator.Send(new AcquisitionsQuery()));
+                return Results.Ok(await mediator.Send(acquisitionsQuery));
             })
             .Produces(StatusCodes.Status200OK, typeof(List<Acquisition>));
 

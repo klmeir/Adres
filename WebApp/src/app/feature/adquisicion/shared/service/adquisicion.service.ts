@@ -5,6 +5,8 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FileUploadService } from './file-upload.service';
 import { FileUploadResponseDto } from '../model/file-upload-response';
+import { AcquisitionFilter } from '../model/acquisition-filter';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,13 @@ export class AdquisicionService {
 
   constructor(protected http: HttpService, protected fileUpload: FileUploadService) {
   }
-  getAcquisitions(): Observable<Acquisition[]> {
-    return this.http.doGet(`${environment.endpoint}/acquisitions`)
+  getAcquisitions(acquisitionFilter: AcquisitionFilter): Observable<Acquisition[]> {
+    let params = new HttpParams();
+    params = params.set('startDate', acquisitionFilter.startDate);
+    params = params.set('endDate', acquisitionFilter.endDate);
+    params = params.set('search', acquisitionFilter.search);
+
+    return this.http.doGet(`${environment.endpoint}/acquisitions`, { params })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .pipe(map((response: any) => response as Acquisition[]));
   }

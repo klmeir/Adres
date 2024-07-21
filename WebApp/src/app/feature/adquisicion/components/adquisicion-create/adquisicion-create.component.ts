@@ -62,14 +62,18 @@ export class AdquisicionCreateComponent implements OnInit {
       if (id) {
         console.log("call update", JSON.stringify(registration));
         this.registrationService.updateAcquisition(id, registration)
-        .subscribe(() => window.alert("Update Acquisition"));
+        .subscribe(() => {
+          //window.alert("Update Acquisition");
+          this.router.navigate(['/list']);
+        });
       } else {
         registration.documentation = this.documentationFiles;
         this.registrationService.addAcquisition(registration)
-        .subscribe(() => window.alert("Create Acquisition"));
+        .subscribe(() => {
+          //window.alert("Create Acquisition");
+          this.router.navigate(['/list']);
+        });
       }
-
-      this.router.navigate(['/list']);
     }
   }
   onImageSelected(event: Event): void {

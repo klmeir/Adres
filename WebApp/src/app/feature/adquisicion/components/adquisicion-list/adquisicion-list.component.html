@@ -2,9 +2,48 @@
 
 <h3 class="mt-5 mb-3">Registration Acquisition List</h3>
 
+<form [formGroup]="filtersForm">
+  <div class="filters row mb-3">
+    <div class="col">
+      <label class="form-label">Acquisition Date:</label>
+      <input class="form-control" type="date" id="startDate" name="startDate" formControlName="startDate" [value]="firstDayOfMonth" />
+      <small
+        class="text-danger"
+        *ngIf="
+        filtersForm.get('startDate')?.invalid &&
+        filtersForm.get('startDate')?.touched
+        "
+      >
+      Start Date is required.
+      </small>
+    </div>
+    <div class="col">
+      <label class="form-label">Acquisition Date:</label>
+      <input class="form-control" type="date" id="endDate" name="endDate" formControlName="endDate" />
+      <small
+        class="text-danger"
+        *ngIf="
+        filtersForm.get('endDate')?.invalid &&
+        filtersForm.get('endDate')?.touched
+        "
+      >
+      End Date is required.
+      </small>
+    </div>
+    <div class="col">
+      <label class="form-label">Search:</label>
+      <input class="form-control" type="text" id="search" name="search" formControlName="search" />
+    </div>
+    <div class="col pt-4">
+      <!-- Agrega más filtros según tus necesidades -->
+      <button type="button" class="btn btn-primary bg-info-custom mt-1" (click)="search()" >Search</button>
+    </div>
+  </div>
+</form>
+
 <table class="table table-striped">
-  <thead>
-    <tr>
+  <thead class="">
+    <tr style="background-color: #5068b2 !important">
       <th>Budget</th>
       <th>Unit</th>
       <th>Type</th>
@@ -13,6 +52,7 @@
       <th>Total Price</th>
       <th>Acquisition Date</th>
       <th>Supplier</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
