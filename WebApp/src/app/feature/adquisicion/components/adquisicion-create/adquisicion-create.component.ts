@@ -2,7 +2,7 @@ import { Acquisition } from '@adquisicion/shared/model/acquisition';
 import { AdquisicionService } from '@adquisicion/shared/service/adquisicion.service';
 import { Component, OnInit, inject  } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../../../core/components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
 import { DocumentationFile } from '@adquisicion/shared/model/documentation-file';
@@ -10,7 +10,7 @@ import { DocumentationFile } from '@adquisicion/shared/model/documentation-file'
 @Component({
   selector: 'app-adquisicion-create',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [NavbarComponent, CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './adquisicion-create.component.html',
   styleUrl: './adquisicion-create.component.css'
 })

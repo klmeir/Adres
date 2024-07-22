@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../../core/components/navbar/navbar.component";
 import { AdquisicionService } from '@adquisicion/shared/service/adquisicion.service';
 import { Acquisition } from '@adquisicion/shared/model/acquisition';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,7 +23,8 @@ export class AdquisicionListComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private adquisicionService: AdquisicionService) {}
+    private adquisicionService: AdquisicionService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.firstDayOfMonth = new Date();
@@ -53,6 +54,8 @@ export class AdquisicionListComponent {
 
   deleteAcquisition(id: number) {
     this.adquisicionService.deleteAcquisition(id)
-    .subscribe(() => window.alert("Delete Acquisition"));;
+      .subscribe(() => {
+        this.search();
+      });;
   }
 }
